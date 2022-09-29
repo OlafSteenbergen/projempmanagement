@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Project profile, {{single_proj['projectid']}}{% endblock %}
+{% block content %}
+
+        <div class="child child4">
+          <h3 class="m-2">PROJECT PROFILE PAGE</h3>
+      </div>
+
+        <div class="child child6 container">
+            <ul class="nav nav-tabs nav-fill mb-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{ url_for('projectdashboard')}}" style=" background-color:rgb(6, 134, 165); color:whitesmoke;">View All Projects</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" style=" background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('projectnew')}}">Add New Project</a>
+                </li>
+              </ul>
+            <div class="centercontent">
+                <div class="card">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+  <p>{{ name }}</p>
+
+  <img src='/static/new_plot.png' alt="Chart" style="width: 100%">                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h3 class="card-title">Project Details</h3>
+                          {% if single_proj %}
+                          <ul class="list-group list-group-numbered">
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                              <div class="ms-2 me-auto">
+                                <div class="fw-bold">Project ID: {{single_proj['projectid']}}</div>
+                              </div>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                              <div class="ms-2 me-auto">
+                                <div class="fw-bold">Name of project: {{single_proj['name']}}</div>
+                                </div>
+                           
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                              <div class="ms-2 me-auto">
+                                <div class="fw-bold">Location: {{single_proj['location']}}</div>
+                                </div>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Employee responsible: <a href="{{ url_for('employeeprofile', empid=single_proj['empres'])}}">{{single_emp['name']}}</a></div>
+                                      </div>
+                                </li>
+                           
+                              <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                  <div class="fw-bold">Description: {{single_proj['description']}}</div>
+                                    </div>
+                              </li>
+
+                              
+                                      </ul>
+                          {% endif %}
+                        </div>
+                        <p>{{ name }}</p>
+
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+      {% endblock %}

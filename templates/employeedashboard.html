@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+{% block content %}
+        <div class="child child2">
+            <h3 class="m-2">Employees</h3>
+        </div>
+        <div class="child child6  container" style="color:rgb(0, 75, 93);">
+            <ul class="nav nav-tabs nav-fill mb-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{ url_for('employeedashboard')}}" style=" background-color:rgb(6, 134, 165); color:whitesmoke;">View all employees</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" style=" background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('employeenew')}}">Add new employees</a>
+                </li>
+              </ul>
+
+              <div class="table-responsive-lg caption-top" style="text-align: left !important">               
+                  <ul class="nav nav-tabs nav-fill mb-3" style="padding-bottom: 1%">
+                    <li class="nav-item" style="text-align: left !important;">
+                      <form class="p-3" action="/employeedashboard", method="POST" style="padding: 0rem!important">
+                          <input id="search" name="search" placeholder="Search name" class="form-control" style="float:left; width: 25% !important;">
+                          <button class="form-control" type="submit" style="float:left; width:12%">Search</button>
+                      </form>
+                    </li>
+
+                    
+                   <li class="nav-item"style="text-align: right !important;">
+                      <form action="{{ url_for('employeedashboard')}}" method="POST">
+                        <select class="form-control" style="width: 50%; margin-left: 50%" name="order" id="order" onchange="this.form.submit()">
+                           
+                          {% if order == 'id' %}  
+                            <option value="id">Employee ID</option>
+                            <option value="name">Employee name</option>
+                          {% elif order == 'name' %}
+                            <option value="name">Employee name</option>
+                            <option value="id">Employee ID</option>
+                          {% else %}
+                            <option value="def" selected="true" disabled="disabled">Order by \/</option>
+                            <option value="name">Employee name</option>
+                            <option value="id">Employee ID</option>
+                            {% endif %}
+                          </select>
+                    </form>
+                    </li>
+                  </ul>
+               
+{% if allemp %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">Empoyee ID</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Phone</th>
+                          <th scope="col">Address</th>
+                          <th scope="col">Update</th>
+                          <th scope="col">Delete</th>
+                          <th scope="col">View Full Profile</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                        {% for emp in allemp %}
+                          {% if emp['empid'] == user['empid'] %}
+                            <tr style="background-color: rgb(131, 131, 131)">
+                            <th scope="row">{{emp['empid']}} (you)</th>
+                          {% else %}
+                            <tr>
+                            <th scope="row">{{emp['empid']}}</th>
+                          {% endif %}
+
+                          <td>{{emp['name']}}</td>
+                          <td>{{emp['email']}}</td>
+                          <td>{{emp['phone']}}</td>
+                          <td>{{emp['address']}}</td>
+                          <td><a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('employeeupdate', empid=emp['empid']) }}">Update</a></td>
+                          <td><a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('employeedelete', empid=emp['empid']) }}">Delete</a></td>
+                          <td><a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('employeeprofile', empid=emp['empid']) }}">View Full Profile</a></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                </table>
+                {% else %}
+                <h3 style="margin-bottom: 20%;">No results found.</h3>
+                {% endif %}
+                
+
+              <!-- </div><img src="/plot.png" alt="my plot"> -->
+        </div>
+      </div>
+    {% endblock %}

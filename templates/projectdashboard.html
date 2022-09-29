@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+{% block content %}
+        <div class="child child4">
+            <h3 class="m-2">Dashboard Page</h3>
+        </div>
+
+
+        <div class="child child6  container" style="color:rgb(0, 75, 93);">
+            <ul class="nav nav-tabs nav-fill mb-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{ url_for('projectdashboard')}}" style=" background-color:rgb(6, 134, 165); color:whitesmoke;">View All Projects</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" style=" background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('projectnew')}}">Add New Projects</a>
+                </li>
+              </ul>
+
+              <div class="table-responsive-lg caption-top">
+                <caption><h3>All projects</h3></caption>
+                <hr>
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">Project ID</th>
+                          <th scope="col">Project Name</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">Location</th>
+                          <th scope="col">Responsible</th>
+                          <th scope="col">Update</th>
+                          <th scope="col">Delete</th>
+                          <th scope="col">View Full Profile</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for proj in allprojects %}
+                        <tr>
+                          <th scope="row">{{proj['projectid']}}</th>
+                          <td>{{proj['name']}}</td>
+                          <td><div style="height:70px; text-overflow: ellipsis;overflow:hidden; ">{{proj['description']}}</div></td>
+                          <td>{{proj['location']}}</td>
+                          <td>{{proj['empres']}}</td>
+                          
+                          <td><a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('projectupdate', projectid=proj['projectid']) }}">Update</a></td>
+                          <td><a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('projectdelete', projectid=proj['projectid']) }}">Delete</a></td>
+                          <td><a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('projectprofile', projectid=proj['projectid']) }}">View Full Profile</a></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                </table>
+                
+
+        </div>
+      </div>
+    {% endblock %}
