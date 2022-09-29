@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+{% block content %}
+        <div class="child child4">
+            <h3 class="m-2">Update Project Page</h3>
+        </div>
+        <div class="child child6left">
+            <div class="circledivleft">
+                <div class="circleleft">
+                </div>
+              </div>
+        </div>
+
+        <div class="child child6" style="color:rgb(0, 75, 93);">
+            <ul class="nav nav-tabs nav-fill mb-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{ url_for('projectdashboard')}}" style=" background-color:rgb(6, 134, 165); color:whitesmoke;">View All Projects</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" style=" background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('projectnew')}}">Add New Project</a>
+                </li>
+              </ul>
+              <div class="table-responsive-lg caption-top">
+                <caption><h3>UPDATE PROJECTS</h3></caption>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  {% for message in messages %}
+                  <h5 style="color: rgb(180, 13, 13)">{{ message }}</h5>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+                 <hr>
+                <form class="p-3" action="/projectupdate/{{single_proj['projectid']}}" method="POST">
+                  <div class="mb-2">
+                    <label for="projectid" class="form-label">Project id</label>
+                    <input type="text" class="form-control" name="projectid" id="projectid" value="{{single_proj['projectid']}}" readonly>
+                  </div>
+                    <div class="mb-2">
+                      <label for="name" class="form-label">Name</label>
+                      <input type="text" class="form-control" name="name" id="name" value="{{single_proj['name']}}">
+                    </div>
+                    <div class="mb-2">
+                      <label for="location" class="form-label">Location</label>
+                      <input type="text" class="form-control" name="location" id="location" value="{{single_proj['location']}}">
+                    </div>
+                    <div class="mb-2">
+                      <label for="empres" class="form-label">Employee responsible</label>
+                        <select name="empres" id="empres" value="{{single_proj['empres']}}" class="form-control">
+                          <option value="{{single_proj['empres']}}" style="background-color: rgb(150, 150, 150);">{{single_proj['empres']}} (current)</option>
+                            {% for empid in allemp %}
+                              {% if empid[0] != single_proj['empres'] %}
+                                <option>{{ empid[0] }}</option>
+                              {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" name="description" id="description" value="{{single_proj['description']}}">
+                      </div>
+            <button type="submit" class="btn text-light m-3" style="background-color:rgb(0, 75, 93);">Update Project</button>
+                  </form>
+              </div>
+        </div>
+
+        <div class="child child6right">
+            <div class="circledivright">
+                <div class="circleright">
+                </div>
+            </div>
+        </div>
+ 
+        {% endblock %}

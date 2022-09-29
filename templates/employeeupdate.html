@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+{% block content %}
+        <div class="child child4">
+            <h3 class="m-2">Update Employee Page</h3>
+        </div>
+        <div class="child child6left">
+            <div class="circledivleft">
+                <div class="circleleft">
+                </div>
+              </div>
+        </div>
+
+        <div class="child child6" style="color:rgb(0, 75, 93);">
+            <ul class="nav nav-tabs nav-fill mb-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{ url_for('employeedashboard')}}" style=" background-color:rgb(6, 134, 165); color:whitesmoke;">View All Employee</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" style=" background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('employeenew')}}">Add New Employee</a>
+                </li>
+              </ul>
+              <div class="table-responsive-lg caption-top">
+                <caption><h3>UPDATE EMPLOYEES</h3></caption>
+                 <hr>
+                <form class="p-3" action="/employeeupdate/{{single_emp['empid']}}" method="POST">
+                  <div class="mb-2">
+                    <label for="empid" class="form-label">Emp id</label>
+                    <input type="text" class="form-control" name="empid" id="empid" value="{{single_emp['empid']}}" readonly>
+                  </div>
+                    <div class="mb-2">
+                      <label for="name" class="form-label">Name</label>
+                      <input type="text" class="form-control" name="name" id="name" value="{{single_emp['name']}}">
+                    </div>
+                    <div class="mb-2">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" name="email" id="email" value="{{single_emp['email']}}">
+                    </div>
+                    <div class="mb-2">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" class="form-control" name="phone" id="phone" value="{{single_emp['phone']}}">
+                      </div>
+                      <div class="mb-2">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" name="address" id="address" value="{{single_emp['address']}}">
+                      </div>
+            <button type="submit" class="btn text-light m-3" style="background-color:rgb(0, 75, 93);">Update Employee</button>
+                  </form>
+              </div>
+        </div>
+
+        <div class="child child6right">
+            <div class="circledivright">
+                <div class="circleright">
+                </div>
+            </div>
+        </div>
+ 
+        {% endblock %}

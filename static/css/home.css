@@ -1,0 +1,31 @@
+.dropdown {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    width: 100%;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+    background-color: white;
+  }
+  .dropdown-content a {
+    display: block;
+    color: #000000;
+    padding: 5px;
+    text-decoration: none;
+  }
+  .dropdown-content a:hover {
+    color: #FFFFFF;
+    background-color: rgb(6, 134, 165);
+  }
+
+  .card{
+    z-index: -1;
+  }
+
+

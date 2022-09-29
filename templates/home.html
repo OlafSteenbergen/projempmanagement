@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+{% block content %}
+
+        <div class="child child4">
+            <h3 class="m-2" style="margin-top: 5% !important; text-align: center;">Welcome {{ user['name'] }}</h3>
+        </div>
+      
+        {% if user %}
+        <div class="child child2">
+            <h5 class="m-2" style="margin-top: 5% !important; text-align: center;">Find below all the projects you are responsible for</h5>
+        </div>
+        <div class="child child6  container" style="color:rgb(0, 75, 93);">
+              <div class="table-responsive-lg caption-top">
+                <hr>
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">Project ID</th>
+                          <th scope="col">Project Name</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">Location</th>
+                          <th scope="col">Update</th>
+                          <th scope="col">Delete</th>
+                          <th scope="col">View Full Profile</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for proj in allprojects %}
+                        <tr>
+                          <th scope="row">{{proj['projectid']}}</th>
+                          <td>{{proj['name']}}</td>
+                          <td><div style="height:70px; text-overflow: ellipsis;overflow:hidden; ">{{proj['description']}}</div></td>
+                          <td>{{proj['location']}}</td>
+                         
+                          <td><a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('projectupdate', projectid=proj['projectid']) }}">Update</a></td>
+                          <td><a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('projectdelete', projectid=proj['projectid']) }}">Delete</a></td>
+                          <td><a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('projectprofile', projectid=proj['projectid']) }}">View Full Profile</a></td>
+                        </tr>
+                        {% endfor %}
+
+                        
+                      </tbody>
+                </table>
+                {% if allprojects == [] %}
+                        <h5 class="m-2" style="margin-top: 5% !important; text-align: center;">No projects assigned to you.</h5>
+                {% endif %}
+
+        </div>
+      </div>
+      {% else %}
+        {% if just_registered %}
+          <div class="child child2">
+            <h5 class="m-2" style="margin-top: 5% !important; text-align: center; color: rgb(6, 68, 6);">Your account has been succesfully created.</h5>
+            <p class="m-2" style="margin-top: 5% !important; text-align: center;"><a href="{{ url_for('login')}}">Log into your account</a></p>
+        </div>
+        {%else%}
+        <div class="child child2">
+          <h5 class="m-2" style="margin-top: 5% !important; text-align: center;">You are currently not logged in</h5>
+          <p class="m-2" style="margin-top: 5% !important; text-align: center;"><a href="{{ url_for('register')}}">Create an account</a> or <a href="{{ url_for('login')}}">log into your account</a></p>
+      </div>
+        {% endif %}
+      {% endif %}
+    {% endblock %}

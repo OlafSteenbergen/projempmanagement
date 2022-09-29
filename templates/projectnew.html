@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+{% block content %}
+        <div class="child child4">
+            <h3 class="m-2">Add New Project Page</h3>
+        </div>
+
+        <div class="child child6left">
+            <div class="circledivleft">
+                <div class="circleleft">
+                </div>
+              </div>
+        </div>
+
+        <div class="child child6 container" style="color:rgb(0, 75, 93);">
+            <ul class="nav nav-tabs nav-fill">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{ url_for('projectdashboard')}}" style=" background-color:rgb(0, 75, 93); color:whitesmoke;">View All Projects</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" style=" background-color:rgb(6, 134, 165); color:whitesmoke;" href="{{ url_for('projectnew')}}">Add New Project</a>
+                </li>
+              </ul>
+
+              <div class="table-responsive-lg caption-top">
+                <caption><h3>ADD NEW PROJECTS</h3></caption>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  {% for message in messages %}
+                  <h5 style="color: rgb(180, 13, 13)">{{ message }}</h5>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+                <hr>
+                <form class="p-3" action="/projectnew", method="POST">
+                    <div class="mb-2">
+                      <label for="name" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                    <div class="mb-2">
+                      <label for="location" class="form-label">Location</label>
+                      <input type="text" class="form-control" id="location" name="location">
+                    </div>
+                    <div class="mb-2">
+                      <label for="empres" class="form-label">Employee responsible</label>
+                        <div>  
+                          <select name="empres" id="empres" class="form-control">
+                            <option value="">Select</option>
+                              {% for empid in allemp %}
+                                <option>{{ empid[0] }}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                      </div>
+                    <button type="submit" class="btn text-light m-3" style="background-color:rgb(0, 75, 93);">Add Project</button>
+                  </form>
+              </div>
+        </div>
+
+        <div class="child child6right">
+            <div class="circledivright">
+                <div class="circleright">
+                </div>
+            </div>
+        </div>
+ 
+        </div>
+
+{%endblock%}
+</body>
+</html>
