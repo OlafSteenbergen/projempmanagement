@@ -207,10 +207,13 @@ def projectdashboard():
     user = get_current_user()
     db = get_database()
 
-    projects_cur = db.execute('select * from projects')
-    allprojects = projects_cur.fetchall()
+    allprojects = db.execute('select * from projects').fetchall()
+    allemps = db.execute('select * from emp').fetchall()
 
-    return render_template("projectdashboard.html", user=user, allprojects=allprojects)
+    allprojects_groupbylocation = db.execute('SELECT location, COUNT(projectid) from projects GROUP BY location').fetchall()
+    allprojects_groupbyempid = db.execute('SELECT empres, COUNT(projectid) from projects GROUP BY empres').fetchall()
+
+    return render_template("projectdashboard.html", user=user, allprojects=allprojects, locations=allprojects_groupbylocation, employees=allprojects_groupbyempid, allemps=allemps)
 
 @app.route("/projectnew", methods=["POST", "GET"])
 def projectnew():
@@ -242,7 +245,6 @@ def projectprofile(projectid):
     proj_cur = db.execute('select * from projects where projectid = ?', [projectid])
     single_proj = proj_cur.fetchone()
     single_emp = db.execute('select name from emp where empid = ?', [single_proj['empres']]).fetchone()
-    chartTest(single_proj['location'])
     
     return render_template('projectprofile.html', user=user, single_proj=single_proj, single_emp=single_emp)
 
@@ -294,18 +296,6 @@ def userprofile():
         return render_template('userprofile.html', user_cur=user_cur)
     else:
         return render_template('userprofile.html', user_cur='')
-
-from geopy.geocoders import Nominatim
-
-def chartTest(location):
-    geolocator = Nominatim(user_agent="geoapiExercises")
-    address=geolocator.geocode(location)
-
-    gps_data_first_df = pd.DataFrame([[address.latitude, address.longitude]], columns=['Latitude', 'Longitude'])
-
-    fig = px.scatter_geo(gps_data_first_df, lat=gps_data_first_df['Latitude'], lon=gps_data_first_df['Longitude'])
-    fig.update_geos(projection_type="orthographic", scope='europe')
-    fig.write_image(file='static/new_plot.png', format='png')
 
 if __name__ == "__main__":
     app.run(debug=True)
